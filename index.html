@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070b16" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Nico OS" />
+  <title>Nico OS</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="splash" class="splash" aria-hidden="true">
+    <img src="assets/splash.jpg" alt="" />
+  </div>
+
+  <main class="app-shell" id="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">NICO OS · SANTA ROSA</div>
+        <h1 id="greeting">Buenas noches, Nico.</h1>
+        <p class="subtitle">Todo lo importante, sin abrir cinco aplicaciones.</p>
+      </div>
+      <div class="topbar-right">
+        <div id="clock" class="clock">--:--</div>
+        <button id="themeBtn" class="chip subtle" type="button" aria-label="Cambiar tema">◐ Obsidian</button>
+      </div>
+    </header>
+
+    <section class="status-row" aria-label="Resumen rápido">
+      <button class="status-pill" type="button" data-scroll="#weatherCard"><span>⛈</span><strong id="tempPill">--°</strong></button>
+      <button class="status-pill" type="button" data-scroll="#inboxCard"><span>✉</span><strong>7 sin leer</strong></button>
+      <button class="status-pill" type="button" data-scroll="#agendaCard"><span>◷</span><strong>Tommy 14:00</strong></button>
+      <a class="status-pill danger" href="https://www.smn.gob.ar/alertas" target="_blank" rel="noopener"><span>◎</span><strong>SR · alertas</strong></a>
+    </section>
+
+    <section class="card hero" id="nowCard">
+      <div class="hero-top">
+        <div>
+          <div class="section-kicker">✦ AHORA</div>
+          <h2 id="nowTitle">Tu noche está ordenada.</h2>
+        </div>
+        <button class="icon-btn" id="refreshNow" type="button" aria-label="Actualizar resumen">↻</button>
+      </div>
+      <div id="nowText" class="hero-copy">Cargando clima y próximos compromisos…</div>
+      <div class="hero-actions">
+        <button type="button" class="btn ghost" data-scroll="#inboxCard">Inbox</button>
+        <button type="button" class="btn ghost" data-scroll="#agendaCard">Mañana</button>
+        <button type="button" class="btn primary" data-scroll="#focusCard">Focus</button>
+      </div>
+    </section>
+
+    <section class="card compact player" id="focusCard">
+      <div class="player-row">
+        <div class="album" aria-hidden="true">♫</div>
+        <div class="player-meta">
+          <div class="section-kicker">FOCUS PLAYER</div>
+          <strong id="trackName">Deep Focus</strong>
+          <span id="playerState">Ambient · local</span>
+        </div>
+        <div class="player-controls">
+          <button id="prevTrack" class="icon-btn" type="button" aria-label="Anterior">‹</button>
+          <button id="playTrack" class="round-play" type="button" aria-label="Reproducir">▶</button>
+          <button id="nextTrack" class="icon-btn" type="button" aria-label="Siguiente">›</button>
+        </div>
+      </div>
+      <div class="ytm-row">
+        <div>
+          <div class="section-kicker">YOUTUBE MUSIC</div>
+          <strong>Tus Me gusta</strong>
+          <div class="micro">Abre directamente tu biblioteca de YouTube Music.</div>
+        </div>
+        <a class="btn ytm" href="https://music.youtube.com/playlist?list=LM" target="_blank" rel="noopener">▶ Abrir</a>
+      </div>
+      <details class="timer-panel">
+        <summary>Focus timer <span id="timerSummary">25:00</span></summary>
+        <div class="timer-body">
+          <div id="timerDisplay" class="timer-display">25:00</div>
+          <div class="timer-actions">
+            <button id="timerStart" class="btn primary" type="button">Iniciar</button>
+            <button id="timerReset" class="btn ghost" type="button">Reset</button>
+            <button id="timer25" class="btn tiny ghost" type="button">25</button>
+            <button id="timer50" class="btn tiny ghost" type="button">50</button>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="grid-2 stack-mobile">
+      <section class="card" id="agendaCard">
+        <div class="section-head">
+          <div><div class="section-kicker">PRÓXIMO</div><h3>Tu línea de tiempo</h3></div>
+          <button id="addTaskBtn" class="icon-btn" type="button" aria-label="Agregar tarea">＋</button>
+        </div>
+        <div id="agendaList" class="timeline"></div>
+      </section>
+
+      <section class="card" id="inboxCard">
+        <div class="section-head">
+          <div><div class="section-kicker">SMART INBOX</div><h3>12 Inbox · 7 sin leer</h3></div>
+          <span class="live-badge">SNAPSHOT</span>
+        </div>
+        <div class="mail-list">
+          <div class="mail-row"><div class="mail-icon">G</div><div><strong>Google · Alerta de seguridad</strong><span>Acceso autorizado a datos de Google para OpenAI.</span></div></div>
+          <div class="mail-row"><div class="mail-icon">MP</div><div><strong>Mercado Pago · nuevo inicio</strong><span>Se informó un acceso desde un nuevo dispositivo.</span></div></div>
+          <div class="mail-row"><div class="mail-icon">GP</div><div><strong>Google Play · suscripción</strong><span>Magia AI Instantánea figura para cancelarse el 1 de octubre.</span></div></div>
+        </div>
+        <a class="text-link" href="https://mail.google.com/" target="_blank" rel="noopener">Abrir Gmail ↗</a>
+      </section>
+    </section>
+
+    <section class="card" id="workCard">
+      <div class="section-head">
+        <div><div class="section-kicker">D&amp;D · PULSO</div><h3>Lo que cambia decisiones</h3></div>
+        <span id="workScore" class="score">0/4</span>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><span>MARKETING SR</span><strong><input id="creditsInput" inputmode="numeric" type="number" min="0" max="99" value="12" aria-label="Créditos realizados" /></strong><small><span id="creditsPct">60%</span> del piso 20</small></div>
+        <div class="kpi"><span>TOMMY</span><strong>14:00</strong><small>control diario</small></div>
+        <div class="kpi"><span>CIERRE</span><strong>✓</strong><small>requiere evidencia</small></div>
+      </div>
+      <div class="work-progress"><div id="workBar"></div></div>
+      <div class="checklist">
+        <label><input type="checkbox" class="work-check" data-key="marketing" /> <span>Marketing Santa Rosa controlado</span></label>
+        <label><input type="checkbox" class="work-check" data-key="tommy" /> <span>Control Tommy 14:00 acreditado</span></label>
+        <label><input type="checkbox" class="work-check" data-key="franquicias" /> <span>Franquicias consolidadas (día hábil -1)</span></label>
+        <label><input type="checkbox" class="work-check" data-key="evidencia" /> <span>Evidencia revisada antes de FINALIZADO</span></label>
+      </div>
+      <button id="generateClose" class="btn ghost full" type="button">Generar cierre rápido</button>
+      <textarea id="closeOutput" class="output" rows="6" placeholder="El cierre aparecerá acá…" aria-label="Cierre rápido"></textarea>
+    </section>
+
+    <section class="card" id="weatherCard">
+      <div class="section-head">
+        <div><div class="section-kicker">SANTA ROSA · CLIMA</div><h3 id="weatherHeadline">Actualizando…</h3></div>
+        <button id="refreshWeather" class="icon-btn" type="button" aria-label="Actualizar clima">↻</button>
+      </div>
+      <div class="weather-main">
+        <div><strong id="weatherTemp">--°</strong><span id="weatherDesc">—</span></div>
+        <div class="weather-facts"><span id="weatherWind">Viento —</span><span id="weatherRain">Lluvia —</span></div>
+      </div>
+      <div id="weatherNote" class="micro">Pronóstico público para Santa Rosa.</div>
+      <a class="text-link" href="https://www.smn.gob.ar/alertas" target="_blank" rel="noopener">Ver alertas oficiales del SMN ↗</a>
+    </section>
+
+    <section class="card" id="newsCard">
+      <div class="section-head">
+        <div><div class="section-kicker">SANTA ROSA · HOY</div><h3>Noticias que valen tu tiempo</h3></div>
+        <button id="refreshNews" class="icon-btn" type="button" aria-label="Actualizar noticias">↻</button>
+      </div>
+      <div id="newsList" class="news-list">
+        <article><span>CLIMA</span><strong>Tormentas durante noche y madrugada</strong><p>El tema con mayor impacto práctico en las próximas horas.</p></article>
+        <article><span>TRÁNSITO</span><strong>Cortes de calles por obras</strong><p>Hay intervenciones en distintos sectores durante la semana.</p></article>
+        <article><span>CIUDAD</span><strong>Grave hecho vial en el acceso sur</strong><p>Uno de los episodios locales más relevantes de la jornada.</p></article>
+      </div>
+      <div id="newsStatus" class="micro">Snapshot inicial. Al actualizar se intenta obtener noticias públicas recientes.</div>
+    </section>
+
+    <section class="card" id="captureCard">
+      <div class="section-head"><div><div class="section-kicker">CAPTURA</div><h3>Una sola caja para cualquier cosa</h3></div><span id="noteCount" class="score">0</span></div>
+      <form id="noteForm" class="capture-form">
+        <input id="noteInput" maxlength="160" placeholder="Mañana llamar a…" aria-label="Nota rápida" />
+        <button class="round-add" type="submit" aria-label="Agregar nota">＋</button>
+      </form>
+      <div id="notesList" class="notes-list"></div>
+    </section>
+
+    <section class="card settings-card">
+      <div class="section-head"><div><div class="section-kicker">CONEXIONES</div><h3>Nico OS instalado</h3></div><span id="onlineState" class="live-badge">ONLINE</span></div>
+      <div class="connections">
+        <a href="https://chatgpt.com/" target="_blank" rel="noopener"><span>ChatGPT</span><small>cerebro / briefing</small></a>
+        <a href="https://calendar.google.com/" target="_blank" rel="noopener"><span>Google Calendar</span><small>agenda</small></a>
+        <a href="https://music.youtube.com/" target="_blank" rel="noopener"><span>YouTube Music</span><small>música</small></a>
+        <a href="https://drive.google.com/" target="_blank" rel="noopener"><span>Google Drive</span><small>documentos</small></a>
+      </div>
+      <button id="installBtn" class="btn primary full hidden" type="button">Instalar Nico OS en el teléfono</button>
+      <p class="micro disclaimer">Clima y noticias pueden actualizarse desde fuentes públicas. Gmail/Calendar/Drive se abren de forma segura en sus apps; la lectura automática de esas cuentas requiere una futura sincronización OAuth/backend.</p>
+    </section>
+
+    <footer>Nico OS · una portada, datos vivos, detalle sólo cuando lo pedís.</footer>
+  </main>
+
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm" class="dialog-card">
+      <div class="section-head"><div><div class="section-kicker">NUEVO</div><h3>Agregar a tu línea de tiempo</h3></div><button class="icon-btn" value="cancel" type="submit">×</button></div>
+      <label>Título<input id="taskTitle" required maxlength="80" /></label>
+      <label>Fecha<input id="taskDate" type="date" required /></label>
+      <label>Hora<input id="taskTime" type="time" /></label>
+      <div class="dialog-actions"><button class="btn ghost" value="cancel" type="submit">Cancelar</button><button id="saveTask" class="btn primary" value="default" type="button">Guardar</button></div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
